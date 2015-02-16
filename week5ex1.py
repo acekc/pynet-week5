@@ -4,14 +4,12 @@ from creds import ip, port, username, password
 def getOctetsViaEapi(username, password, ip, port):
 
   switch_url = 'https://{}:{}@{}:{}'.format(username, password, ip, port)
-
   switch_url += '/command-api'
 
   remote_connect = jsonrpclib.Server(switch_url)
 
   response = remote_connect.runCmds(1, ['show interfaces'])
-
-  response = response[0]['interfaces']
+  response = response[0]['interfaces'] # Remove outer list and dictionary
 
   print 'Interface counters for {}:'.format(ip)
 
